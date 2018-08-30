@@ -12,6 +12,8 @@ public class CustomPlayer extends Player {
     }
 
     public int minimaxDecision(HeuristicStateTree s) {
+       Minimax minimax = new Minimax();
+       minimax.minMax(s, 10000000, 0,0,false);
         return 0;
     }
 

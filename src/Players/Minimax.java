@@ -5,6 +5,8 @@ import Utilities.Move;
 import Utilities.StateTree;
 
 public class Minimax {
+    public Minimax() {
+    }
     // Actions are 0-BoardWidth plus Dropout represented by int of value boardWidth
 
     // Taken from Referee.java class
@@ -95,8 +97,9 @@ public class Minimax {
         return a > b ? a : b;
     }
 
-    private static int minMax(HeuristicStateTree board, int depth, int alpha, int beta, boolean playerMax)
+    public int minMax(HeuristicStateTree board, int depth, int alpha, int beta, boolean playerMax)
     {
+
         if (Minimax.terminalTest(board))
         {
             return Utility(board);
