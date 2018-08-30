@@ -28,7 +28,7 @@ public class Minimax {
                 else
                 {
                     winner = board.getBoardMatrix()[i][j];
-                    for(int x=0; x<board.winNumber; x++)
+                    for(int x=0; x < board.winNumber; x++)
                     {
                         if((j+x < board.columns) && (board.getBoardMatrix()[i][j+x] == winner))
                             count[0]++;
@@ -83,8 +83,8 @@ public class Minimax {
         return checkConnect(board) != 0 && !checkFull(board);
     }
 
-    public static void Utility(HeuristicStateTree board) {
-        return;
+    public static int Utility(HeuristicStateTree board) {
+        return board.eval();
     }
 
     private static int Min(int a, int b) {
@@ -95,46 +95,67 @@ public class Minimax {
         return a > b ? a : b;
     }
 
-
-    private static int maxValue(HeuristicStateTree board) {
+    private static int minMax(HeuristicStateTree board, int depth, int alpha, int beta, boolean playerMax)
+    {
         if (Minimax.terminalTest(board))
-            Utility(board);
-
-        int v = Integer.MIN_VALUE;
-
-        boolean dropping = false;
-        for (int move = 0; move < board.rows * 2; move++) {
-            if (move == board.rows) dropping = true;
-            Move m = new Move(dropping, move);
-            if (board.validMove(m)) {
-                board.makeMove(m);
-                v = Minimax.Max(v, Minimax.minValue(board));
-            }
+        {
+            return Utility(board);
         }
 
-        return v;
-    }
-
-
-
-    private static int minValue(HeuristicStateTree board) {
-        if (Minimax.terminalTest(board))
-            Utility(board);
-
-        int v = Integer.MAX_VALUE;
-
-        boolean dropping = false;
-
-        for (int move = 0; move < board.rows * 2; move++) {
-            if (move == board.rows) dropping = true;
-            Move m  = new Move(dropping, move);
-            if (board.validMove(m)) {
-                board.makeMove(m);
-                v = Minimax.Min(v, Minimax.maxValue(board));
+        if (playerMax)
+        {
+            boolean pop = false;
+            int maxEval = Integer.MIN_VALUE;
+            for (int move = 0; move < board.columns * 2; move++)
+            {
+                if (move == board.columns)
+                {
+                    pop = true;
+                }
+                Move m = new Move(pop, move);
+                if (board.validMove(m))
+                {
+                    board.makeMove(m);
+                    int currentEval = minMax(board,depth-1,alpha,beta,false);
+                    maxEval = Max(maxEval, currentEval);
+                    alpha = Max(alpha,currentEval);
+                    if (beta <= alpha)
+                    {
+                        break;
+                    }
+                }
             }
+            return maxEval;
         }
-        return v;
+
+        else
+        {
+            boolean pop = false;
+            int minEval = Integer.MAX_VALUE;
+            for (int move = 0; move < board.columns * 2; move++)
+            {
+                if (move == board.columns)
+                {
+                    pop = true;
+                }
+                Move m = new Move(pop, move);
+                if (board.validMove(m))
+                {
+                    board.makeMove(m);
+                    int currentEval = minMax(board,depth-1,alpha,beta,true);
+                    minEval = Min(minEval, currentEval);
+                    beta = Min(beta,currentEval);
+                    if (beta <= alpha)
+                    {
+                        break;
+                    }
+                }
+            }
+            return minEval;
+        }
+
     }
+
 
     public Move search(HeuristicStateTree board) {
         return new Move(true, 0);
