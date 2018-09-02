@@ -11,17 +11,19 @@ public class CustomPlayer extends Player {
         super(n, t, l);
     }
 
-    public int minimaxDecision(HeuristicStateTree s) {
+    public Move minimaxDecision(HeuristicStateTree s) {
        Minimax minimax = new Minimax();
-       minimax.minMax(s, 10000000, 0,0,false);
-        return 0;
+       minimax.minMax(s, 1, 0,0,true);
+       return minimax.OptimalMove;
     }
 
 
 
     @Override
     public Move getMove(StateTree state) {
-        return new Move(false, 1);
+        Move a = minimaxDecision(new HeuristicStateTree(state.rows,state.columns,state.winNumber,state.turn,state.pop1,state.pop2,state));
+        System.out.println(a.getColumn()+"this is final col");
+        return a;
     }
 }
 

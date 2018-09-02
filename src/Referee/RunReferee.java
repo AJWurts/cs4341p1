@@ -28,7 +28,7 @@ public class RunReferee {
 		
 		
 		
-		Player player1 = (Player) new SimplePlayer1("SimplePlayer1", 1, timeLimit);
+		Player player1 = (Player) new SimplePlayer1("SimplePlayer2", 1, timeLimit);
 		Player player2 = (Player) new CustomPlayer("CustomPlayer", 2, timeLimit);
 
 

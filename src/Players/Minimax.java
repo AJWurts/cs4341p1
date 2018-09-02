@@ -5,8 +5,12 @@ import Utilities.Move;
 import Utilities.StateTree;
 
 public class Minimax {
+    Move OptimalMove;
+
     public Minimax() {
+        OptimalMove = new Move(false,0);
     }
+
     // Actions are 0-BoardWidth plus Dropout represented by int of value boardWidth
 
     // Taken from Referee.java class
@@ -100,7 +104,7 @@ public class Minimax {
     public int minMax(HeuristicStateTree board, int depth, int alpha, int beta, boolean playerMax)
     {
 
-        if (Minimax.terminalTest(board))
+        if (Minimax.terminalTest(board) || depth == 0)
         {
             return Utility(board);
         }
@@ -109,25 +113,38 @@ public class Minimax {
         {
             boolean pop = false;
             int maxEval = Integer.MIN_VALUE;
-            for (int move = 0; move < board.columns * 2; move++)
+            for (int p = 0; p < 2; p++)
             {
-                if (move == board.columns)
+                if(p==1)
                 {
                     pop = true;
                 }
-                Move m = new Move(pop, move);
-                if (board.validMove(m))
+                for (int move = 0; move < board.columns; move++)
                 {
-                    board.makeMove(m);
-                    int currentEval = minMax(board,depth-1,alpha,beta,false);
-                    maxEval = Max(maxEval, currentEval);
-                    alpha = Max(alpha,currentEval);
-                    if (beta <= alpha)
+                    System.out.println(move+"this move number is :");
+                    Move m = new Move(pop, move);
+                    System.out.println(m.getColumn()+"this max move is :");
+                    if (board.validMove(m))
                     {
-                        break;
+                        //HeuristicStateTree NewBoard = new HeuristicStateTree(board.rows,board.columns,board.winNumber,board.turn,board.pop1,board.pop2,board);
+                        board.makeMove(m);
+                        board.display();
+                        int currentEval = minMax(board,depth-1,alpha,beta,false);
+                        maxEval = Max(maxEval, currentEval);
+                        if(maxEval == currentEval)
+                        {
+                            OptimalMove = m;
+                            System.out.println(m.getColumn()+"maxmove");
+                        }
+                        //alpha = Max(alpha,currentEval);
+                        //if (beta <= alpha)
+                        //{
+                        //    break;
+                        //}
                     }
                 }
             }
+
             return maxEval;
         }
 
@@ -135,22 +152,30 @@ public class Minimax {
         {
             boolean pop = false;
             int minEval = Integer.MAX_VALUE;
-            for (int move = 0; move < board.columns * 2; move++)
-            {
-                if (move == board.columns)
-                {
+            for (int p = 0; p < 2; p++) {
+                if (p == 2) {
                     pop = true;
                 }
-                Move m = new Move(pop, move);
-                if (board.validMove(m))
+                for (int move = 0; move < board.columns; move++)
                 {
-                    board.makeMove(m);
-                    int currentEval = minMax(board,depth-1,alpha,beta,true);
-                    minEval = Min(minEval, currentEval);
-                    beta = Min(beta,currentEval);
-                    if (beta <= alpha)
+                    Move m = new Move(pop, move);
+                    System.out.println(m.getColumn()+"this min move is :");
+                    if (board.validMove(m))
                     {
-                        break;
+                        //HeuristicStateTree NewBoard = new HeuristicStateTree(board.rows,board.columns,board.winNumber,board.turn,board.pop1,board.pop2,board);
+                        board.makeMove(m);
+                        int currentEval = minMax(board,depth-1,alpha,beta,true);
+                        minEval = Min(minEval, currentEval);
+                        if(minEval == currentEval)
+                        {
+                            OptimalMove = m;
+                            System.out.println(m.getColumn()+"minmove");
+                        }
+                        //beta = Min(beta,currentEval);
+                        //if (beta <= alpha)
+                        //{
+                        //    break;
+                        //}
                     }
                 }
             }

@@ -18,11 +18,12 @@ package Utilities;
 import java.util.ArrayList;
 import java.io.PrintStream;
 import java.lang.Math;
+import java.util.Arrays;
 
 public abstract class StateTree
 {
 	public int rows, columns, winNumber, turn; // board parameters
-	boolean pop1, pop2; // true if the player has used their pop move
+	public boolean pop1, pop2; // true if the player has used their pop move
 	int[][] boardMatrix; // matrix representing the board (0 = empty, 1 = player1, 2 = player2)
 	StateTree parent; // parent state
 	ArrayList<StateTree> children; // list of children states
@@ -41,7 +42,7 @@ public abstract class StateTree
 		if(p != null)
 			parent = p;
 		if (out == null) {
-			out = out;
+			out = new PrintStream(System.out);
 		}
 	}
 	
@@ -55,6 +56,7 @@ public abstract class StateTree
 		}
 		if(!move.pop && boardMatrix[rows-1][move.column] != 0)
 		{
+			out.println(rows+ "col: " + move.column);
 			out.println("That column is full.");
 			return false;
 		}
@@ -126,4 +128,5 @@ public abstract class StateTree
 	public void setOut(PrintStream printStream) {
 		out = printStream;
 	}
+
 }
