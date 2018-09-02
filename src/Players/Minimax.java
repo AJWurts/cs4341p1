@@ -103,7 +103,9 @@ public class Minimax {
 
     public int minMax(HeuristicStateTree board, int depth, int alpha, int beta, boolean playerMax)
     {
-
+        board.setBoard();
+        board.display();
+        System.out.println("2nd");
         if (Minimax.terminalTest(board) || depth == 0)
         {
             return Utility(board);
@@ -126,10 +128,15 @@ public class Minimax {
                     System.out.println(m.getColumn()+"this max move is :");
                     if (board.validMove(m))
                     {
-                        //HeuristicStateTree NewBoard = new HeuristicStateTree(board.rows,board.columns,board.winNumber,board.turn,board.pop1,board.pop2,board);
-                        board.makeMove(m);
-                        board.display();
-                        int currentEval = minMax(board,depth-1,alpha,beta,false);
+                        HeuristicStateTree NewBoard = new HeuristicStateTree(board.rows,board.columns,board.winNumber,board.turn,board.pop1,board.pop2,board);
+                        System.out.println("one and only new board");
+                        NewBoard.display();
+
+                        NewBoard.setBoard();
+
+                        NewBoard.makeMove(m);
+
+                        int currentEval = minMax(NewBoard,depth-1,alpha,beta,false);
                         maxEval = Max(maxEval, currentEval);
                         if(maxEval == currentEval)
                         {
@@ -162,9 +169,10 @@ public class Minimax {
                     System.out.println(m.getColumn()+"this min move is :");
                     if (board.validMove(m))
                     {
-                        //HeuristicStateTree NewBoard = new HeuristicStateTree(board.rows,board.columns,board.winNumber,board.turn,board.pop1,board.pop2,board);
-                        board.makeMove(m);
-                        int currentEval = minMax(board,depth-1,alpha,beta,true);
+                        HeuristicStateTree NewBoard = new HeuristicStateTree(board.rows,board.columns,board.winNumber,board.turn,board.pop1,board.pop2,board);
+                        NewBoard.setBoard();
+                        NewBoard.makeMove(m);
+                        int currentEval = minMax(NewBoard,depth-1,alpha,beta,true);
                         minEval = Min(minEval, currentEval);
                         if(minEval == currentEval)
                         {

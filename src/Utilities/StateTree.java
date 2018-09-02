@@ -24,9 +24,9 @@ public abstract class StateTree
 {
 	public int rows, columns, winNumber, turn; // board parameters
 	public boolean pop1, pop2; // true if the player has used their pop move
-	int[][] boardMatrix; // matrix representing the board (0 = empty, 1 = player1, 2 = player2)
-	StateTree parent; // parent state
-	ArrayList<StateTree> children; // list of children states
+	protected int[][] boardMatrix; // matrix representing the board (0 = empty, 1 = player1, 2 = player2)
+	protected StateTree parent; // parent state
+	protected ArrayList<StateTree> children; // list of children states
 	private PrintStream out = null;
 	
 	
@@ -79,6 +79,14 @@ public abstract class StateTree
 	// Makes the given move on the board and updates the state
 	public void makeMove(Move move)
 	{
+		System.out.println("this is the new board: ");
+		this.display();
+
+		if(parent != null) {
+
+		System.out.println("this is the old board: ");
+		this.parent.display();
+		}
 		if(move.pop)
 		{
 			if(turn == 1)

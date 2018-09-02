@@ -9,6 +9,11 @@ public class HeuristicStateTree extends StateTree {
         super(r, c, w, t, p1, p2, p);
     }
 
+    public void setBoard()
+    {
+        this.boardMatrix = this.parent.getBoardMatrix();
+    }
+
 
     public int eval()
     {
