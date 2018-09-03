@@ -23,10 +23,7 @@ public class CustomPlayer extends Player {
     public Move getMove(StateTree state) {
         HeuristicStateTree NewTree = new HeuristicStateTree(state.rows,state.columns,state.winNumber,state.turn,state.pop1,state.pop2,state);
         NewTree.setBoard();
-        NewTree.display();
-        System.out.println("1st");
         Move a = minimaxDecision(NewTree);
-        System.out.println(a.getColumn()+"this is final col");
         return a;
     }
 }

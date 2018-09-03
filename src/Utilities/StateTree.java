@@ -101,8 +101,6 @@ public abstract class StateTree
 				{
 					boardMatrix[i][move.column] = turn;
 					turn = Math.abs(turn-3);
-					System.out.println("wrote to");
-					System.out.println(boardMatrix);
 					return;
 				}
 			}
