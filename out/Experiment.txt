@@ -1,6 +1,15 @@
-For this project we mainly used Test-Driven-Developement. Our heuristic begins from the top left and checks the current square the one to the left and traverse the board to the right, diagnolly to the right to
-Our original heuristic was originally 2 to the power of connections * the number of connections there are, but there were 2 problems with this the first being 2 to the power is too small especially when connecting 3 or 4.
-In other words the sparse ones would detract attention from better connections that were available. We solved this by changing to base 10^1 for sparse connections, and 10^n for direct connections. See an example of our experiment below.
+For this project we mainly used Test-Driven-Developement. Our heuristic begins from the top left node and checks the current
+node, then traversing the board to the right, diagonally down to to the right, and then straight down. This is illustrated
+in the diagram below:
+0 1 X
+3 2 X
+X X X
+
+Our original heuristic used 2 to the power of connections * the number of existing connections, but there was a problem
+with this approach. The first problem was using 2 to the power of the number of connections was too small when connecting
+only 3 or 4 nodes. It was overpowered by other connections that were blocked by the opponent. The sparse ones would detract
+attention from better connections that were available. We solved this by changing to base 10^1 for sparse connections,
+and 10^n for direct connections, where n is the number of nodes connected. See an example of our experiment below.
 
 Original Heuristic vs SimplePlayer1 example:
 
@@ -8,5 +17,9 @@ Original Heuristic vs SimplePlayer1 example:
 1 0 0 0 0 1 0
 1 0 0 0 0 2 0
 2 2 0 0 0 1 0
-1 1 0 0 0 2 0 =======> as you can see from this game reenactment, our heurisitc had a better option to connect 3 on the 4th column but decided to add to the second to last column, because they had the same number of "connections" whether direct or indirect.
+1 1 0 0 0 2 0 =======>
 1 2 2 0 0 1 0
+
+As you can see from this game reenactment, our heurisitc had a better option to connect 3 nodes on the bottom row by
+placing a piece in the 4th column but decided to add a piece to the second to last column instead, because they had the
+same number of "connections," whether direct or indirect.
