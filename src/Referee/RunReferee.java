@@ -28,8 +28,8 @@ public class RunReferee {
 		
 		
 		
-		Player player1 = (Player) new SimplePlayer1("SimplePlayer2", 1, timeLimit);
-		Player player2 = (Player) new CustomPlayer("CustomPlayer", 2, timeLimit);
+		Player player2 = (Player) new SimplePlayer2("SimplePlayer2", 1, timeLimit);
+		Player player1 = (Player) new CustomPlayer("CustomPlayer", 2, timeLimit);
 
 
 		Referee referee = new Referee();
