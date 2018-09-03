@@ -13,7 +13,7 @@ public class CustomPlayer extends Player {
 
     public Move minimaxDecision(HeuristicStateTree s) {
        Minimax minimax = new Minimax();
-       minimax.minMax(s, 1, 0,0,true);
+       minimax.minMax(s, 2, 0,0,true);
        return minimax.OptimalMove;
     }
 

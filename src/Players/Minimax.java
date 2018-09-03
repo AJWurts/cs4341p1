@@ -155,7 +155,7 @@ public class Minimax {
                         if(maxEval == currentEval)
                         {
                             OptimalMove = m;
-                            System.out.println(m.getColumn()+"maxmove");
+                            //System.out.println(m.getColumn()+"maxmove");
                         }
                         //alpha = Max(alpha,currentEval);
                         //if (beta <= alpha)
@@ -187,6 +187,7 @@ public class Minimax {
                     Move m = new Move(pop, move);
                     System.out.println(m.getColumn()+"this min move is :");
                     // If the move is valid
+                    //System.out.println(m.getColumn()+"this min move is :");
                     if (board.validMove(m))
                     {
                         // Initialize a new board
@@ -203,7 +204,7 @@ public class Minimax {
                         if(minEval == currentEval)
                         {
                             OptimalMove = m;
-                            System.out.println(m.getColumn()+"minmove");
+                            //System.out.println(m.getColumn()+"minmove");
                         }
                         //beta = Min(beta,currentEval);
                         //if (beta <= alpha)

@@ -28,7 +28,7 @@ public class RunReferee {
 		
 		
 		
-		Player player2 = (Player) new SimplePlayer2("SimplePlayer2", 1, timeLimit);
+		Player player2 = (Player) new SimplePlayer1("SimplePlayer1", 1, timeLimit);
 		Player player1 = (Player) new CustomPlayer("CustomPlayer", 2, timeLimit);
 
 
@@ -41,7 +41,6 @@ public class RunReferee {
 		 	}
 		};			
 		ExecutorService service = Executors.newSingleThreadExecutor();
-		
 		final Future<Object> future1 = service.submit(judge1);
 		int result = -1;
 		try {
