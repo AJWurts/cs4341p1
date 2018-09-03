@@ -30,11 +30,11 @@ public class HeuristicStateTree extends StateTree {
             int player = 0;
             int[] Count = new int[4];
             int[] NumOfOpenEnd = new int[4];
-            for(int i=0; i< parent.rows; i++)
+            for(int i=0; i< rows; i++)
             {
-                for(int j=0; j<parent.columns; j++)
+                for(int j=0; j<columns; j++)
                 {
-                    if(parent.getBoardMatrix()[i][j] == 0)
+                    if(this.getBoardMatrix()[i][j] == 0)
                     {
                         player = 0;
                         for(int x=0; x<4; x++)
@@ -44,20 +44,20 @@ public class HeuristicStateTree extends StateTree {
                     }
                     else
                     {
-                        player = parent.getBoardMatrix()[i][j];
-                        for(int x=0; x<parent.winNumber; x++) {
+                        player = this.getBoardMatrix()[i][j];
+                        for(int x=0; x<winNumber; x++) {
                             //check if next is connected
-                            if ((j + x < parent.columns) && (parent.getBoardMatrix()[i][j + x] == player)) {
+                            if ((j + x < columns) && (this.getBoardMatrix()[i][j + x] == player)) {
                                 Count[0]++;
                             }
                             //if next is not connected and within grid
-                            else if ((j + x < parent.columns) && (parent.getBoardMatrix()[i][j + x] != player)) {
+                            else if ((j + x < columns) && (this.getBoardMatrix()[i][j + x] != player)) {
                                 //if next is open
-                                if (parent.getBoardMatrix()[i][j + x] == 0) {
+                                if (this.getBoardMatrix()[i][j + x] == 0) {
                                     NumOfOpenEnd[0]++;
                                 }
                                 //if the previous one is open
-                                if (((j - 1) >= 0) && (parent.getBoardMatrix()[i][j - 1] == 0)) {
+                                if (((j - 1) >= 0) && (this.getBoardMatrix()[i][j - 1] == 0)) {
                                     NumOfOpenEnd[0]++;
                                 }
                                 break;
@@ -67,19 +67,19 @@ public class HeuristicStateTree extends StateTree {
                             }
                         }
 
-                        for(int x=0; x<parent.winNumber; x++) {
+                        for(int x=0; x<winNumber; x++) {
                             //check if next is connected
-                            if ((i+x < parent.rows) && (parent.getBoardMatrix()[i+x][j] == player)) {
+                            if ((i+x < rows) && (this.getBoardMatrix()[i+x][j] == player)) {
                                 Count[1]++;
                             }
                             //if next is not connected and within grid
-                            else if ((i + x < parent.rows) && (parent.getBoardMatrix()[i + x][j] != player)) {
+                            else if ((i + x < rows) && (this.getBoardMatrix()[i + x][j] != player)) {
                                 //if next is open
-                                if (parent.getBoardMatrix()[i + x][j] == 0) {
+                                if (this.getBoardMatrix()[i + x][j] == 0) {
                                     NumOfOpenEnd[1]++;
                                 }
                                 //if the previous one is open
-                                if (((i - 1) >= 0) && (parent.getBoardMatrix()[i - 1][j] == 0)) {
+                                if (((i - 1) >= 0) && (this.getBoardMatrix()[i - 1][j] == 0)) {
                                     NumOfOpenEnd[1]++;
                                 }
                                 break;
@@ -90,19 +90,19 @@ public class HeuristicStateTree extends StateTree {
                         }
 
 
-                        for(int x=0; x<parent.winNumber; x++) {
+                        for(int x=0; x<winNumber; x++) {
                             //check if next is connected
-                            if ((i+x < parent.rows) && (j+x < parent.columns) && (parent.getBoardMatrix()[i+x][j+x] == player)) {
+                            if ((i+x < rows) && (j+x < columns) && (this.getBoardMatrix()[i+x][j+x] == player)) {
                                 Count[2]++;
                             }
                             //if next is not connected and within grid
-                            else if ((i+x < parent.rows) && (j+x < parent.columns) && (parent.getBoardMatrix()[i+x][j+x] != player)) {
+                            else if ((i+x < rows) && (j+x < columns) && (this.getBoardMatrix()[i+x][j+x] != player)) {
                                 //if next is open
-                                if (parent.getBoardMatrix()[i + x][j + x] == 0) {
+                                if (this.getBoardMatrix()[i + x][j + x] == 0) {
                                     NumOfOpenEnd[2]++;
                                 }
                                 //if the previous one is open
-                                if (((i - 1) >= 0) && ((j - 1) >= 0) && (parent.getBoardMatrix()[i - 1][j - 1] == 0)) {
+                                if (((i - 1) >= 0) && ((j - 1) >= 0) && (this.getBoardMatrix()[i - 1][j - 1] == 0)) {
                                     NumOfOpenEnd[2]++;
                                 }
                                 break;
@@ -112,19 +112,19 @@ public class HeuristicStateTree extends StateTree {
                             }
                         }
 
-                        for(int x=0; x<parent.winNumber; x++) {
+                        for(int x=0; x<winNumber; x++) {
                             //check if next is connected
-                            if ((i-x >= 0) && (j+x < parent.columns) && (parent.getBoardMatrix()[i-x][j+x] == player)) {
+                            if ((i-x >= 0) && (j+x < columns) && (this.getBoardMatrix()[i-x][j+x] == player)) {
                                 Count[3]++;
                             }
                             //if next is not connected and within grid
-                            else if ((i-x >= 0) && (j+x < parent.columns) && (parent.getBoardMatrix()[i-x][j+x] != player)) {
+                            else if ((i-x >= 0) && (j+x < columns) && (this.getBoardMatrix()[i-x][j+x] != player)) {
                                 //if next is open
-                                if (parent.getBoardMatrix()[i - x][j + x] == 0) {
+                                if (this.getBoardMatrix()[i - x][j + x] == 0) {
                                     NumOfOpenEnd[3]++;
                                 }
                                 //if the previous one is open
-                                if (((i + 1) < parent.rows) && ((j - 1) >= 0) && (parent.getBoardMatrix()[i + 1][j - 1] == 0)) {
+                                if (((i + 1) < rows) && ((j - 1) >= 0) && (this.getBoardMatrix()[i + 1][j - 1] == 0)) {
                                     NumOfOpenEnd[3]++;
                                 }
                                 break;
@@ -137,11 +137,19 @@ public class HeuristicStateTree extends StateTree {
                     }
                     if (player == parent.turn)
                     {
+                        System.out.println(Count);
+                        System.out.println(NumOfOpenEnd);
                         Heuristic += (NumOfOpenEnd[0]*Math.pow(2d,Count[0]) + NumOfOpenEnd[1]*Math.pow(2d,Count[1]) + NumOfOpenEnd[2]*Math.pow(2d,Count[2]) + NumOfOpenEnd[3]*Math.pow(2d,Count[3]));
                     }
                     else if (player != parent.turn)
                     {
-                        Heuristic -= (NumOfOpenEnd[0]*Math.pow(2d,Count[0]) + NumOfOpenEnd[1]*Math.pow(2d,Count[1]) + NumOfOpenEnd[2]*Math.pow(2d,Count[2]) + NumOfOpenEnd[3]*Math.pow(2d,Count[3]));
+                        System.out.println(parent.turn);
+                        System.out.println("C1: " + Count[0] + ",C2: " + Count[1] + ",C3: " + Count[2] + ",C4: " + Count[3]);
+                        System.out.println("O1: " + NumOfOpenEnd[0] + ",O2: " + NumOfOpenEnd[1] + ",O3: " + NumOfOpenEnd[2] + ",O4: " + NumOfOpenEnd[3]);
+                        double ccc = NumOfOpenEnd[0]*Math.pow(2d,Count[0]) + NumOfOpenEnd[1]*Math.pow(2d,Count[1]) + NumOfOpenEnd[2]*Math.pow(2d,Count[2]) + NumOfOpenEnd[3]*Math.pow(2d,Count[3]);
+                        System.out.println("i: "+i+"j: "+j);
+                        System.out.println("localH: " + ccc);
+                        Heuristic -= ccc;
                     }
                     Arrays.fill(Count,0);
                     Arrays.fill(NumOfOpenEnd,0);

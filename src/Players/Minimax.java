@@ -128,6 +128,8 @@ public class Minimax {
                         HeuristicStateTree NewBoard = new HeuristicStateTree(board.rows,board.columns,board.winNumber,board.turn,board.pop1,board.pop2,board);
                         NewBoard.setBoard();
                         NewBoard.makeMove(m);
+                        System.out.println("current board: ");
+                        NewBoard.display();
                         int currentEval = minMax(NewBoard,depth-1,alpha,beta,false);
                         maxEval = Max(maxEval, currentEval);
                         if(maxEval == currentEval)
