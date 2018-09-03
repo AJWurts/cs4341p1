@@ -75,7 +75,7 @@ public class HeuristicStateTree extends StateTree {
                             //if next is not connected and within grid
                             else if ((i + x < parent.rows) && (parent.getBoardMatrix()[i + x][j] != player)) {
                                 //if next is open
-                                if (parent.getBoardMatrix()[i][j + x] == 0) {
+                                if (parent.getBoardMatrix()[i + x][j] == 0) {
                                     NumOfOpenEnd[1]++;
                                 }
                                 //if the previous one is open
