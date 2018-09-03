@@ -11,7 +11,16 @@ public class HeuristicStateTree extends StateTree {
 
     public void setBoard()
     {
-        this.boardMatrix = this.parent.getBoardMatrix();
+        int[][] b = new int [rows][columns]; // matrix representing the board (0 = empty, 1 = player1, 2 = player2)
+
+            for (int i=rows-1; i>=0; i--)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    b[i][j] = parent.getBoardMatrix()[i][j];
+                }
+            }
+        this.boardMatrix = b;
     }
 
 

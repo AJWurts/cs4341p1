@@ -103,7 +103,8 @@ public class Minimax {
 
     public int minMax(HeuristicStateTree board, int depth, int alpha, int beta, boolean playerMax)
     {
-        board.setBoard();
+
+        //board.setBoard();
         board.display();
         System.out.println("2nd");
         if (Minimax.terminalTest(board) || depth == 0)
@@ -128,13 +129,31 @@ public class Minimax {
                     System.out.println(m.getColumn()+"this max move is :");
                     if (board.validMove(m))
                     {
-                        HeuristicStateTree NewBoard = new HeuristicStateTree(board.rows,board.columns,board.winNumber,board.turn,board.pop1,board.pop2,board);
-                        System.out.println("one and only new board");
-                        NewBoard.display();
 
+                        HeuristicStateTree NewBoard = new HeuristicStateTree(board.rows,board.columns,board.winNumber,board.turn,board.pop1,board.pop2,board);
+
+
+                        System.out.println("this is the new board 1: ");
+                        NewBoard.display();
+                        System.out.println("this is the old board 1: ");
+                        board.display();
                         NewBoard.setBoard();
 
+                        System.out.println(board.getBoardMatrix());
+                        System.out.println(NewBoard.getBoardMatrix());
+
+                        System.out.println("this is the new board 2: ");
+                        NewBoard.display();
+                        System.out.println("this is the old board 2: ");
+                        board.display();
                         NewBoard.makeMove(m);
+
+
+                        System.out.println("this is the new board 3: ");
+                        NewBoard.display();
+                        System.out.println("this is the old board 3: ");
+                        board.display();
+
 
                         int currentEval = minMax(NewBoard,depth-1,alpha,beta,false);
                         maxEval = Max(maxEval, currentEval);
