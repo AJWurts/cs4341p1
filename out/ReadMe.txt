@@ -1,1 +1,0 @@
-To run this program, compile the code and run RunReferee.java.

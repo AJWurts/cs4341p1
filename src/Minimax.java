@@ -7,10 +7,12 @@ import Utilities.StateTree;
 public class Minimax {
     // The current optimal move that the player can choose
     Move OptimalMove;
+    boolean FirstPlayer;
 
     // Constructor for Minimax
-    public Minimax() {
+    public Minimax(boolean e) {
         OptimalMove = new Move(false,0);
+        FirstPlayer = e;
     }
 
     // Actions are 0-BoardWidth plus Dropout represented by int of value boardWidth
@@ -87,6 +89,9 @@ public class Minimax {
         return true;
     }
 
+
+
+
     // Function to check to see if the game is over
     private static boolean terminalTest(StateTree board)
     {
@@ -94,8 +99,8 @@ public class Minimax {
     }
 
     // Return the utility value of each node based on our heuristic
-    public static int Utility(HeuristicStateTree board) {
-        return board.eval();
+    public int Utility(HeuristicStateTree board) {
+        return board.eval(FirstPlayer);
     }
 
     // Return the lesser of two values
@@ -130,19 +135,18 @@ public class Minimax {
             {
                 if(p==1)
                 {
-                    pop = true;
+                    pop = false;
                 }
                 // Iterate through each possible move placing a piece in each column in turn
                 for (int move = 0; move < board.columns; move++)
                 {
                     // Initialize a new move
                     Move m = new Move(pop, move);
-                    System.out.println(m.getColumn()+"this max move is :");
                     // Check if current move is valid
                     if (board.validMove(m))
                     {
                         // Initialize a new board
-                        HeuristicStateTree NewBoard = new HeuristicStateTree(board.rows,board.columns,board.winNumber,board.turn,board.pop1,board.pop2,board);
+                        HeuristicStateTree NewBoard = new HeuristicStateTree(board.rows,board.columns,board.winNumber,board.turn,board.getPop1(),board.getPop2(),board);
                         // Create a copy of the current board
                         NewBoard.setBoard();
                         // Make the current move on the copy of the current board
@@ -151,17 +155,18 @@ public class Minimax {
                         int currentEval = minMax(NewBoard,depth-1,alpha,beta,false);
                         // Store the value of the max current node between the current evaluation and the max evaluation
                         maxEval = Max(maxEval, currentEval);
+                        //alpha beta pruning
+                        alpha = Max(alpha,currentEval);
+                        if (beta <= alpha)
+                        {
+                            break;
+                        }
                         // If the current evaluation is the optimal move, record the move as the new best move
                         if(maxEval == currentEval)
                         {
                             OptimalMove = m;
-                            //System.out.println(m.getColumn()+"maxmove");
                         }
-                        //alpha = Max(alpha,currentEval);
-                        //if (beta <= alpha)
-                        //{
-                        //    break;
-                        //}
+
                     }
                 }
             }
@@ -178,20 +183,18 @@ public class Minimax {
             // For each move, iterate through possible moves for both pop and non-pop options
             for (int p = 0; p < 2; p++) {
                 if (p == 2) {
-                    pop = true;
+                    pop = false;
                 }
                 // Iteratively check placing a piece in each column
                 for (int move = 0; move < board.columns; move++)
                 {
                     // Initialize a new move
                     Move m = new Move(pop, move);
-                    System.out.println(m.getColumn()+"this min move is :");
                     // If the move is valid
-                    //System.out.println(m.getColumn()+"this min move is :");
                     if (board.validMove(m))
                     {
                         // Initialize a new board
-                        HeuristicStateTree NewBoard = new HeuristicStateTree(board.rows,board.columns,board.winNumber,board.turn,board.pop1,board.pop2,board);
+                        HeuristicStateTree NewBoard = new HeuristicStateTree(board.rows,board.columns,board.winNumber,board.turn,board.getPop1(),board.getPop2(),board);
                         // Create a copy of the current board
                         NewBoard.setBoard();
                         // Make the move
@@ -199,18 +202,19 @@ public class Minimax {
                         // Make a recursive call to minimax with Alphabeta pruning
                         int currentEval = minMax(NewBoard,depth-1,alpha,beta,true);
                         // Store the value of the min current node between the current evaluation and the min evaluation
+                        //alpha beta pruning
                         minEval = Min(minEval, currentEval);
+                        if (beta <= alpha)
+                        {
+                            break;
+                        }
                         // If the current evaluation is the optimal move, record the move as the new best move
+
                         if(minEval == currentEval)
                         {
                             OptimalMove = m;
-                            //System.out.println(m.getColumn()+"minmove");
                         }
-                        //beta = Min(beta,currentEval);
-                        //if (beta <= alpha)
-                        //{
-                        //    break;
-                        //}
+
                     }
                 }
             }

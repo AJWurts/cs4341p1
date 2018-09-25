@@ -23,9 +23,9 @@ import java.util.Arrays;
 public abstract class StateTree
 {
 	public int rows, columns, winNumber, turn; // board parameters
-	public boolean pop1, pop2; // true if the player has used their pop move
+	protected boolean pop1, pop2; // true if the player has used their pop move
 	protected int[][] boardMatrix; // matrix representing the board (0 = empty, 1 = player1, 2 = player2)
-	public StateTree parent; // parent state
+	protected StateTree parent; // parent state
 	protected ArrayList<StateTree> children; // list of children states
 	private PrintStream out = null;
 	
@@ -51,25 +51,24 @@ public abstract class StateTree
 	{
 		if(move.column >= columns || move.column < 0)
 		{
-			out.println("That column doesn't exist.");
+			//out.println("That column doesn't exist.");
 			return false;
 		}
 		if(!move.pop && boardMatrix[rows-1][move.column] != 0)
 		{
-			out.println(rows+ "col: " + move.column);
-			out.println("That column is full.");
+			//out.println(rows+ "col: " + move.column);
 			return false;
 		}
 		if(move.pop)
 		{
 			if(boardMatrix[0][move.column] != turn)
 			{
-				out.println("You can't pop a piece that isn't your own.");
+				//out.println("You can't pop a piece that isn't your own.");
 				return false;
 			}
 			if((turn == 1 && pop1) || (turn == 2 && pop2))
 			{
-				out.println("You can't pop a piece twice in a game.");
+				//out.println("You can't pop a piece twice in a game.");
 				return false;
 			}
 		}
